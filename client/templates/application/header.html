@@ -1,0 +1,22 @@
+<template name="header">
+    
+     <nav class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+                  
+            <a class="navbar-brand" href="{{optional}}">
+            <img src="{{logo}}"  height="24" width="auto" style="float:left"><b>{{title}}</b></a>
+            
+        </div>
+        <div class="collapse navbar-collapse" id="navigation">
+        <div class="navbar-right" role="navigation">
+            <table style="padding:10px">
+                <tr>
+                    <th>{{searchit}}</th>
+                    <th>{{notifications}}</th>
+                    <th><div class="header-button"><a href="{{url}}">{{user}}</a></div></th>
+                </tr>
+             </table>
+            </div>
+        </div>
+    </nav>
+</template>    
