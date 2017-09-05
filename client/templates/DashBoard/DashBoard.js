@@ -74,29 +74,31 @@ Template.dashBoard.helpers({
                
                 return Company.findOne().facebook;
             },
-        dashposts:function() {
-                    var id= Meteor.users.findOne()._id;
-                return Posts.find({userId: id, status:0 }, {sort:{releasedate: -1}});
-            },
-        distributionlists:function() {
-                        
-                        return DistributionLists.find();
-                    },
-         influencerlist:function() {
-                        
-                        return Influencers.find();
-                    },
-         presslist:function() {
-                        
-                        return Influencers.find();
-                    },           
+        
+                 
                                 
         teamlist:function() {
                         var list = [general,tech,losers];
                         return list;
                     },
                     
-                                       
+        teamCounter:function() {
+        
+                return 0;
+                },                               
+            
+        draftCounter:function() {
+                    return Posts.find({userId: Company.findOne().userId, status:0 }).count();
+                },
+                
+        scheduleCounter:function() {
+                    return Posts.find({userId: Company.findOne().userId, status:1 }).count();
+                },
+                
+        publishCounter:function() {
+                    return Posts.find({userId: Company.findOne().userId, status:2 }).count();
+                },                
+                    
             
             });
             
@@ -105,7 +107,7 @@ Template.dashBoard.helpers({
             
 Template.dashBoard.events({
 
-        'click #edit' : function(e) {
+        'click #companyedit' : function(e) {
                     var id= Meteor.users.findOne()._id;
                 Router.go('/marketerSetup/'+id+'?edit="all"')
         
@@ -216,10 +218,60 @@ Template.dashBoard.events({
                             $("#distroaddwindow").css('visibility', 'hidden');
     
                     
-                }                 
+                } ,                
 
-
-
+        'click #teamListItem' : function(e) {
+                                $("#dashboard_Teams").css('visibility', 'visible');
+                                $("#dashboard_Published").css('visibility', 'hidden');
+                                 $("#dashboard_Drafts").css('visibility', 'hidden');
+                                 $("#dashboard_Scheduled").css('visibility', 'hidden');
+                                  $("#dashboard_DistributionList").css('visibility', 'hidden');
+                            
+                    },
+                    
+                    'click #DistrobutionListItem' : function(e) {
+                                $("#dashboard_DistributionList").css('visibility', 'visible');
+                                $("#dashboard_Teams").css('visibility', 'hidden');
+                                $("#dashboard_Published").css('visibility', 'hidden');
+                                 $("#dashboard_Drafts").css('visibility', 'hidden');
+                                 $("#dashboard_Scheduled").css('visibility', 'hidden');
+                                  
+                    },
+                    
+         'click #DashBoard' : function(e) {
+                                $("#dashboard_Teams").css('visibility', 'hidden');
+                                 $("#dashboard_Published").css('visibility', 'hidden');
+                                 $("#dashboard_Drafts").css('visibility', 'hidden');
+                                 $("#dashboard_Scheduled").css('visibility', 'hidden');
+                                  $("#dashboard_DistributionList").css('visibility', 'hidden');
+                            
+                    },
+                    
+         'click #PublishedItem' : function(e) {
+                                $("#dashboard_Published").css('visibility', 'visible');
+                                 $("#dashboard_Drafts").css('visibility', 'hidden');
+                                 $("#dashboard_Scheduled").css('visibility', 'hidden');
+                                 $("#dashboard_Teams").css('visibility', 'hidden');
+                                  $("#dashboard_DistributionList").css('visibility', 'hidden');
+                            
+                    },
+         'click #ScheduledItem' : function(e) {
+                                $("#dashboard_Scheduled").css('visibility', 'visible');
+                                $("#dashboard_Teams").css('visibility', 'hidden');
+                                 $("#dashboard_Published").css('visibility', 'hidden');
+                                 $("#dashboard_Drafts").css('visibility', 'hidden');
+                                  $("#dashboard_DistributionList").css('visibility', 'hidden');
+                            
+                    },           
+                    
+         'click #DraftsItem' : function(e) {
+                                $("#dashboard_Drafts").css('visibility', 'visible');
+                                $("#dashboard_Teams").css('visibility', 'hidden');
+                                 $("#dashboard_Published").css('visibility', 'hidden');
+                                 $("#dashboard_Scheduled").css('visibility', 'hidden');
+                                  $("#dashboard_DistributionList").css('visibility', 'hidden');
+                            
+                    }
 
 });   
 

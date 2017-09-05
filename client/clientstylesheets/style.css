@@ -1,4 +1,15 @@
-.grid-block, .main, .post, .comments, .comment-form, .login-dialog, .popup{
+
+.comments .post .container {
+
+font-family: "Montserrat", Helvetica, Arial, sans-serif;
+font-size: 14px;
+font-weight: 400;
+
+}
+
+
+
+.grid-block, .main, .post, .comments, .comment-form, .login-dialog, .popup , .side_navbar , .slideIn{
 
     /*background: #fff; */
     
@@ -15,18 +26,33 @@
         
         background-position: right top;
         height:100%;
-        background: #fff;
+       /* background: #fff; */
         color: #666666;
+       /* background-image: url("media/Suru_BG.png"); */
        }
         
    #main {
-    position: relative;
-    }
+    position: absolute;
+    top:6%;
+    bottom:0px;
+    left:0px;
+    right:0px;
+    overflow: auto;
+    
+    } 
     
     .container {
+        position:absolute;
+        top:0px;
+        left:0px;
+        bottom:0px;
+        right:0px;
         width:100%;
-        /*background: #fff; */
-       /* background-image: url("media/Suru_BG.png"); */
+        height:100%;
+        background: #fff; 
+        overflow:auto;
+        /*background-image: url("media/Suru_BG.png"); */
+       
     
     }
     
@@ -43,28 +69,85 @@
     
     .page {
         position: absolute;
-        top: 10px;
+        top: 0px;
         width: 100%;
+        height:100%;
+        background-image: url("media/Suru_BG.png"); 
         
         
         }
         
     .navbar {
-        margin-bottom: 10px;
+        position:absolute;
+        top:0px;
+        left:0px;
+        right:0px;
+        height:4%;
+        /*margin-bottom: 10px; */
         width:100%;
-        background:#fff;
+        background:#FBFBFC;
+        
         color:#111;
          }
     .navbar .navbar-inner {
-        border-radius: 0px 0px 3px 3px;
-        
+       /* border-radius: 0px 0px 3px 3px; */
+        border-style:dashed;
+        border-width:10px;
+        border-color:black;
         }
         
     .navbar-right {
         float:right;
-        margin-right:2px;
+        margin-right:2px; 
+        top:0px;
        
     }
+    
+    .side_navbar {
+        position: absolute;
+        border-radius: 0px 0px 3px 3px;
+        height:100%;
+        background:#FBFBFC;
+        top:0px;
+        bottom:0px;
+        width:12%;
+        max-width:400px;
+    
+    }
+    
+    .nav_buttons {
+            padding-top:10px;
+            padding-bottom:10px;
+            border-width:1px;
+            width:100%
+            font-size: 18px;
+            font-weight: 200px; 
+            
+        }
+        
+        a.nav_button {
+        
+            color: black;
+            margin-bottom:10px;
+          
+        
+        }
+        
+        a.nav_button:hover{
+                background:#E5EFE9;
+                
+        }
+    
+    
+    .main-content {
+     position:relative;
+     left:12%;
+     width:88%;
+     top:-5px;
+    
+    
+    }
+    
     
     .thumbnail {
         width: 80%;
@@ -131,13 +214,16 @@
         }
         
      .postquote {
+        margin-top:10px;
         margin-left:5%;
         background:#fde6;
         padding:10px;
-        border-radius:1%;
+        border-radius:3px;
         -webkit-box-shadow: 2px 4px 8px rgba(0,0,0, 0.15);
         -moz-box-shadow: 2px 4px 8px rgba(0,0,0, 0.15);
         box-shadow: 2px 4px 8px rgba(0,0,0,0.15);
+        border-style: none none none solid;
+        border-color:red;
      
      }
       .postcite {
@@ -227,7 +313,7 @@
  
  /* DashBoard style sets */
  
- .dashBoard-AaG, .dashBoard-PRViews, .dashBoard-PREngagment, .dashBoard-companyInfo, .dashBoard-PressRelease {
+ .dashBoard-AaG, .dashBoard-PRViews, .dashBoard-PREngagment, .dashBoard-companyInfo, .dashBoard-PressRelease, .prPreview {
      background: #fff;
     border-radius: 5px;
     padding: 10px;
@@ -254,9 +340,9 @@
  .dashBoard-PressRelease {
     width:100%;
     max-width:1300px; 
-    height:100%;
+    /*height:100%;*/
     /*max-height:20%;*/
-    overflow:auto;
+    overflow: auto;
     
  
  }
@@ -305,10 +391,16 @@
  }
  
  .dashBoard-companyInfo {
-    position:static;
+    position: relative;
+    float:right;
     margin-top:5px;
-    height:40%;
-    width:100%;
+    border-radius: 0px 0px 3px 3px;
+    width:30%;
+    bottom:0px;
+    height:100%;
+    background:#FBFBFC;
+    top:0px;
+    max-width:800px;
     
  
  }
@@ -330,6 +422,29 @@
  .dashBoard-contactInfo {
   width:50%;
   float:left;
+ 
+ }
+ 
+ .list_Item {
+ width:100%;
+ float:left;
+ border-style: solid none none none;
+ border-width: 1px;
+ border-color:lightgray;
+ padding:3px;
+ margin-bottom:10px;
+ 
+ }
+ 
+ .prPreview {
+ position:absolute;
+ top:0px;
+ bottom:0px;
+ right:0px;
+ width:40%;
+ overflow:auto;
+ visibility:hidden;
+ 
  
  }
  
@@ -498,4 +613,71 @@
         
         
         }
+        .nav_info {
+        float:right;
+        background:red;
+        padding:2px;
+        text-align:center;
+        border-radius: 20px;
+        width:30px;
+        color:#fff;
+        
+        }
+        
+        .slideIn {
+            left:12%;
+            right:0px;
+            position:absolute;
+            top:0px;
+            bottom:0px;
+            
+            background:#fff;
+            visibility: hidden;
+        
+        
+        }
+        
+        
+        
+        
+        /*Harvey*/
+        
+        
+        /* button */
+        .button,.button__flat,.button__suggested,.button__danger,.button--icon-only {
+ 
+    display: flex;
+    flex-direction: row; 
+    align-items: center;
+    min-width: (24px * 2);
+    min-height: (24px * 2);
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left:6px;
+    padding-right: 12px; 
+    
+    /*background-image: linear-gradient($background100, $background300); */
+    border: 1px solid lightgray;
+    border-radius: 6px;
+    box-shadow: 0 1px 0 0 rgba(0,0,0,0.12);
+    transition: all 120ms ease-in-out;
+    
+    color: black;
+    text-shadow: 0 1px 0 1px;
+    text-transform: uppercase;
+  }
+  
+  /* searchbar */
+.searchbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: (12px * 18);
+  min-height: (12px * 2);
+  box-sizing: border-box;
+  
+  }
+  
+  
+
                     

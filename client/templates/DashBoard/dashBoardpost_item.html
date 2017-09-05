@@ -21,7 +21,7 @@
         
          </div>
          <div style="float:left;padding:5px;"> <img src="{{companyLogoSmall}}" alt="HomePage" height="56" width="auto"></div>   
-            <h1>{{title}}</h1>
+            <h1>{{title}} ( {{pubstatus}} )</h1>
             <h3>{{tagline}}</h3>
             <br/>
             Release on: {{releasedate}}
@@ -61,15 +61,15 @@
                     </table>
                     
                  <div class="post-tools" style="background:#eee;padding:10px;height:50px;">
-                <button style="float:right" type="button" class= "sendEmail" onclick="">Send Release</button>
+                <button style="float:right" type="button" class= "postAction" onclick="">{{action}}</button>
         </div>   
             </div> 
             
-            <div class="dashBoard-AaG"> 
+            <div id="seen" class="dashBoard-AaG"> 
                 <h3>Seen by: </h3>
             </div>
             
-            <div class="dashBoard-AaG"> 
+            <div id="question" class="dashBoard-AaG"> 
                 <h3>Questions: </h3>
             </div>
               

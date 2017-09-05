@@ -1,12 +1,27 @@
 <template name="dashBoard">
 
-<div class="row">
-    <div class="col-sm-3">
-<!-- <div class="dashBoard-AaG" > -->
 
+        <div class="side_navbar" >
+            <h4>{{companyName}}</h4>
+            
+            <div class="nav_buttons"><a class="nav_button" id="DashBoard"><div> <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;Information</div></a></div>
+            <div class="nav_buttons"><a class="nav_button" id="teamListItem"><div> <i class="fa fa-users" aria-hidden="true"></i>&nbsp;Team<span class="nav_info"> {{teamCounter}} </span></div></a></div>
+            <div class="nav_buttons"><a class="nav_button" id="DistrobutionListItem"> <div> <i class="fa fa-address-book" aria-hidden="true"></i>&nbsp;Distribution</div> 
+            </a></div> 
+            <br/>
+            Press Releases <i style="float:right;margin-right:10px;" class="fa fa-plus" aria-hidden="true"></i><br/>
+            
+           <div class="nav_buttons"><a class="nav_button" id="DraftsItem" ><div><i class="fa fa-file-code-o" aria-hidden="true"></i>&nbsp;Drafts<span class="nav_info"> {{draftCounter}} </span></div></a></div>
+            <div class="nav_buttons"><a class="nav_button" id="ScheduledItem" ><div><i class="fa fa-calendar-o" aria-hidden="true"></i>&nbsp;Scheduled<span class="nav_info"> {{scheduleCounter}} </span></div></a></div>
+            <div class="nav_buttons"><a class="nav_button" id="PublishedItem"><div><i class="fa fa-check" aria-hidden="true"></i>&nbsp;Published<span class="nav_info"> {{publishCounter}} </span></div></a></div>
+            
+        </div>
+    
+<!-- <div class="dashBoard-AaG" > -->
+<div class="main-content" >
 <div class="dashBoard-companyInfo">
     
-    <h1> {{companyName}} <img style="float:right" id="edit" src="/Buttons/edit.svg" alt="Edit" height="24" width="auto"> 
+    <h1> {{companyName}} <img style="float:right" id="companyedit" src="/Buttons/edit.svg" alt="Edit" height="24" width="auto"> 
     <!-- <button style="width:60px; height:60px;" type="button" onclick="Router.go('/marketerSetup/{{userId}}')">+</button> -->
     </h1>
     <a href={{url}} > <img class=dashBoard-largeLogo src="{{companyLogo}}" alt="HomePage" height="128" width="auto"> </a>
@@ -32,58 +47,18 @@
     
     </div>
     
-    <div class="dashBoard-AaG" >
-        <table style="width:100%">
- <tr>
- <td style="width:90%"> <h2> PR Team: </h2></td>
- <td style="text-align:right"> <button style="width:60px; height:60px" type="button" id="teamadd" onclick="">+</button> </td>
- </tr>
- </table>
-        
-         <table style="width=100%">
-            
-            {{#each teamlist}}
-            <tr>
-                <td>{{teamlist}}</td>
-            </tr>    
-            {{/each}}
-            
-        </table>
-    
-    </div>
+
    
     <button style="float:right" type="button" onclick="AccountsTemplates.logout()">Log Out</button> 
 </div>
 
-</div>
-<div class="col-sm-5">
-<div class="dashBoard-PressRelease" >
- <table style="width:100%">
- <tr>
- <td style="width:90%"> <h2> Press Releases: </h2></td>
- <td style="text-align:right"> <button style="width:60px; height:60px" type="button" onclick="Router.go('/dashboard/{{userId}}/newPressRelease')">+</button> </td>
- </tr>
- </table>
- 
- <div class="dashBoard-Posts">
-        <div class="dashposts">
-            {{#each dashposts}}
-            {{> DashpostItem}}
-            {{/each}}
-        </div>    
-         
- 
- </div>
+<div id="dashboard_PR" class="slideIn" >
+
 
 </div>
-</div>
-
-
-
-
 
 <!-- <div class="dashBoard-AaG" id="widgets"> -->
-<div class="col-sm-2">
+<div id="dashboard_Influencer" class="slideIn" >
 <div class="dashBoard-PRAAG" >
      <table style="width:100%">
  <tr>
@@ -103,10 +78,8 @@
     </table>
     
 </div>
-</div>
 
-<div class="col-sm-2">
-<div class="dashBoard-distlist" >
+<!--<div class="dashBoard-distlist" >
      <table style="width:100%">
  <tr>
  <td style="width:90%"> <h3> Distribution List: </h3></td>
@@ -148,93 +121,18 @@
             
         </table>
 
-</div>
- </div>
+</div> -->
+
+</div> 
  
  </div>
+
  
-<div class="popup" id="distroaddwindow"  >
-<h2>Distribution List</h2>
-<div style="width:100%;height:2px;background:#000"> </div>
-<br/>
-<div class="row">
-<form style="text-align:left;padding:10px;" id="distributionform">
- <div class="col-sm-8">
-
-<h3 style="text-align:left;">List Options</h3>
-Name: <input type="text" name="listname" value="">
-<br/>Custom message:
-<textarea cols="80" rows="17" name="message"> </textarea>
-<br/>
-<table style="width:100%;">
-<tr>
-<td><button type="button" id="distrocancel">Cancel</button></td>
-<td><input type="submit" value="Submit" name="dsubmit"></td>
-</tr></table> 
-</div>
-<div class="col-sm-4">
-<h3>Influencers</h3>
-Search: <input type="text" name="search" value="">
-<br/>
-<table style="width=100%">
-            
-            {{#each influencerlist}}
-                
-                {{> distroInfluencer}}
-                
-            {{/each}}
-            
-        </table>
-        
-</div>
 
 
-</form>
 
-
-</div>
-
-</div>
-
-
-<div class="popup" id="influenceraddwindow"  >
-<h2>Influencer</h2>
-<div style="width:100%;height:2px;background:#000"> </div>
-<br/>
-<form style="text-align:right;padding:10px;" id="influencerform">
-<div class="row">
-
-<div class="col-sm-4">
-<h3 style="text-align:left">General</h3>
-<br/>
-Name: <input type="text" name="name" value=""><br/>
-Company: <input type="text" name="company" value=""><br/>
-Email: <input type="text" name="email" value=""><br/>
-URL: <input type="text" name="url" value=""><br/>
-<br/>
-<h3 style="text-align:left">Optional</h3>
-Address: <input type="text" name="address" value=""><br/>
-State: <input type="text" name="state" value=""><br/>
-Country: <input type="text" name="country" value=""><br/>
-Phone: <input type="text" name="phone" value=""><br/>
-
-</div>
- <div class="col-sm-8">
- <br><br>Notes:
-<textarea cols="80" rows="18" name="notes"> </textarea>
-
-</div></div>
-
-<br/>
-<table style="width:100%;">
-<tr>
-<td><button type="button" id="influencercancel">Cancel</button></td>
-<td><input type="submit" value="Submit" name="isubmit"></td>
-</tr></table> 
-
-</form>
-</div>
-
+<div id="dashboard_Teams" class="slideIn" >
+{{> teamList }}
 
 
 <div class="popup" id="teamaddwindow">
@@ -270,6 +168,33 @@ Phone: <input type="text" name="phone" value=""><br/>
 </tr></table> 
 
 </form>
+</div>
+
+</div>
+
+<div id="dashboard_Drafts" class="slideIn" >
+{{> draftsList }}
+
+</div>
+
+<div id="dashboard_Scheduled" class="slideIn" >
+{{> scheduledList }}
+
+</div>
+
+<div id="dashboard_Published" class="slideIn" >
+{{> publishedList }}
+
+</div>
+
+<div id="dashboard_TeamList" class="slideIn" >
+{{> teamList }}
+
+</div>
+
+<div id="dashboard_DistributionList" class="slideIn" >
+{{> distributionList }}
+
 </div>
 
 

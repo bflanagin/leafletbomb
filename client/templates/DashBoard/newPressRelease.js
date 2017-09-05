@@ -2,7 +2,7 @@ Template.newPressRelease.helpers ({
     
     
     pagetitle: function(e) {
-            if (Router.current().params.query.edit.length == 0) {
+            if (Router.current().params.query.edit == undefined) {
             return "New Release";
             } else {
             return "Edit Release";
@@ -11,16 +11,16 @@ Template.newPressRelease.helpers ({
       },      
           
     documentId:function(e) {
-            if (Router.current().params.query.edit.length == 0) {
+            if (Router.current().params.query.edit == undefined) {
         var theid = Meteor.users.findOne()._id;
-        var docs = Posts.find({userId:theid}).count();
+        var d = new Date();
+        var docs = Company.findOne()._id+"_"+d.getTime();
         return theid+"_"+docs;
-        } else {
-        
-            
+        } else {   
         return Router.current().params.query.edit;
         }
     },
+    
     userId:function() {return Meteor.users.findOne()._id},
     date: function() {return Date()},
     releasedata: function() {
@@ -75,9 +75,9 @@ Template.newPressRelease.helpers ({
                var thefiles = [];
                if (Router.current().params.query.edit.length == 0) {
                         var theid = Meteor.users.findOne()._id;
-                        var docs = Posts.find({userId:theid}).count();
+                        var docs = $("#therelease").find('[name=docId]').val();
                    
-                   PostAssets.find({docId:theid+"_"+docs}).forEach(
+                   PostAssets.find({docId:docs}).forEach(
                                             function(files){
                                             
                                                // thefiles.push ("{_id:"+files.filename+"}");
@@ -110,9 +110,9 @@ Template.newPressRelease.helpers ({
                var thefiles = [];
                if (Router.current().params.query.edit.length == 0) {
                         var theid = Meteor.users.findOne()._id;
-                        var docs = Posts.find({userId:theid}).count();
+                       var docs = $("#therelease").find('[name=docId]').val();
                    
-                   PostAssets.find({docId:theid+"_"+docs}).forEach(
+                   PostAssets.find({docId:docs}).forEach(
                                             function(files){
                                             
                                                // thefiles.push ("{_id:"+files.filename+"}");
@@ -143,9 +143,9 @@ Template.newPressRelease.helpers ({
                var thefiles = [];
                if (Router.current().params.query.edit.length == 0) {
                         var theid = Meteor.users.findOne()._id;
-                        var docs = Posts.find({userId:theid}).count();
+                       var docs = $("#therelease").find('[name=docId]').val();
                    
-                   PostAssets.find({docId:theid+"_"+docs}).forEach(
+                   PostAssets.find({docId:docs}).forEach(
                                             function(files){
                                             
                                                // thefiles.push ("{_id:"+files.filename+"}");
@@ -177,9 +177,9 @@ Template.newPressRelease.helpers ({
                var thefiles = [];
                if (Router.current().params.query.edit.length == 0) {
                         var theid = Meteor.users.findOne()._id;
-                        var docs = Posts.find({userId:theid}).count();
+                       var docs = $("#therelease").find('[name=docId]').val();
                    
-                   PostAssets.find({docId:theid+"_"+docs}).forEach(
+                   PostAssets.find({docId:docs}).forEach(
                                             function(files){
                                             
                                                // thefiles.push ("{_id:"+files.filename+"}");
@@ -208,9 +208,9 @@ Template.newPressRelease.helpers ({
                var thefiles = [];
                if (Router.current().params.query.edit.length == 0) {
                         var theid = Meteor.users.findOne()._id;
-                        var docs = Posts.find({userId:theid}).count();
+                        var docs = $("#therelease").find('[name=docId]').val();
                    
-                   PostAssets.find({docId:theid+"_"+docs}).forEach(
+                   PostAssets.find({docId:docs}).forEach(
                                             function(files){
                                             
                                                // thefiles.push ("{_id:"+files.filename+"}");
@@ -244,7 +244,31 @@ Template.newPressRelease.events ({
            // e.preventDefault();
                 var theId =  Meteor.users.findOne()._id;
                 var d = new Date();
-                var docs = Posts.find({userId:theId}).count();
+                var docs = $("#therelease").find('[name=docId]').val();
+    
+   
+   if(Router.current().params.query.edit === undefined) {
+   
+   var Info = {
+        userId:theId,
+        title:$(e.target).find('[name=title]').val(),
+        tagline:$(e.target).find('[name=tagline]').val(),
+        creationdate:(d.getMonth()+1)+"-"+d.getDate()+"-"+d.getFullYear(),
+        releasedate:$(e.target).find('[name=releasedate]').val(),
+        archivedate:$(e.target).find('[name=archivedate]').val(),
+        release:$(e.target).find('[name=release]').val(),
+        tags:$(e.target).find('[name=keywords]').val(),
+        assets:$(e.target).find('[name=file]').val(),
+        docId:docs,
+        status:0
+    };
+   
+    
+    Posts.insert(Info);
+    
+    } else {
+    var listId = Posts.findOne({"docId":Router.current().params.query.edit})._id;
+    
     var Info = {
         userId:theId,
         title:$(e.target).find('[name=title]').val(),
@@ -255,16 +279,9 @@ Template.newPressRelease.events ({
         release:$(e.target).find('[name=release]').val(),
         tags:$(e.target).find('[name=keywords]').val(),
         assets:$(e.target).find('[name=file]').val(),
-        docId:theId+"_"+docs,
         status:0
     };
-   
-   if(Router.current().params.query.edit === undefined) {
     
-    Posts.insert(Info);
-    
-    } else {
-    var listId = Posts.findOne({"docId":Router.current().params.query.edit})._id;
     Posts.update({"_id": listId},{$set: Info});
     
     }
@@ -278,7 +295,7 @@ Template.newPressRelease.events ({
     var files = event.target.files;
     
     var theId =  Meteor.users.findOne()._id;
-    var docs = Posts.find({userId:theId}).count();
+    var docs = $("#therelease").find('[name=docId]').val();
      
     for (var i = 0, ln = files.length; i < ln; i++) {
       Images.insert(files[i], function (err, fileObj) {
@@ -286,7 +303,7 @@ Template.newPressRelease.events ({
         
         } else {
             var info = {
-                    docId:theId+"_"+docs,
+                    docId:docs,
                    filename:fileObj._id
             };
             PostAssets.insert(info);

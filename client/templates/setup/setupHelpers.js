@@ -14,6 +14,8 @@ Template.marketerSetup.helpers ({
                             var file = CompanyAssets.findOne({"companyId":Meteor.userId() , "type":"companySPImg"}).filename;
                           return Images.findOne({_id:file}).url();
    }
+   
+   
 
     
 });

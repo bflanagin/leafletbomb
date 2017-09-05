@@ -19,10 +19,32 @@ Template.header.helpers ( {
     
     },
     
+    avatar: function () {
+    
+             if(Meteor.users.find().count() == 1) {
+                            Meteor.subscribe('images');
+                            Meteor.subscribe('companyassets');
+             
+                            var file = CompanyAssets.findOne({"companyId":Meteor.users.findOne()._id, "type":"companySPImg"}).filename;
+                        
+                                
+                          return Images.findOne({_id:file}).url();
+                          
+                
+                } else {
+                    
+                    return " ";
+                }
+    
+    },
+    
     title: function () {
     
                 if(Company.find().count() === 0) {  
+                
                             return "LeafLeft Bomb"; 
+                            
+                            
                             } else {
                             return Company.findOne().companyName;
                             
@@ -32,7 +54,7 @@ Template.header.helpers ( {
     logo: function() {
                         Meteor.subscribe('images');
                         Meteor.subscribe('companyassets');
-                            var file = CompanyAssets.findOne({"companyId":Meteor.users.findOne()._id , "type":"companyLogoSmall"}).filename;
+                            var file = CompanyAssets.findOne({"companyId":Meteor.users.findOne()._id , "type":"companyLogo"}).filename;
                           return Images.findOne({_id:file}).url();
         
         },

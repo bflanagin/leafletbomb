@@ -3,7 +3,39 @@ Template.DashpostItem.helpers ( {
        /* This needs to be done in one or two lines. But I'm using a hammer today. Tommorow
             I'll use a scalpel */
             
-            document: function() {return this.docId;},
+            pubstatus: function(e) { 
+                            switch(this.status) {
+                                case 0: {
+                                        $('#seen').css('visibility','hidden');
+                                        $("#question").css('visibility', 'hidden');
+                                return "Draft";}
+                                
+                                break;
+                                case 1: {
+                                         $('#seen').css('visibility','hidden');
+                                        $("#question").css('visibility', 'hidden');
+                                
+                                return "Scheduled";}
+                                            break;
+                                case 2: return "Published";break;
+                                case 3: return "Archived";break;
+                                case 4: return "Trashed";break;
+                                default: return "No value";break;
+                            }
+            
+                            },
+                            
+             action: function(e) {
+                        switch(this.status) {
+                            case 0: return "Schedule";break;
+                            case 1: return "Publish"; break;
+                            case 2: return "Send"; break;
+                        }
+                      
+             },
+            
+            document: function(e) {
+                                  return this.docId;},
      companyName: function() {
        Meteor.subscribe('companies',this.userId);
         return Company.findOne({userId:this.userId}).companyName;
@@ -136,10 +168,14 @@ Template.DashpostItem.helpers ( {
         
                 var text = this.release;
        
-          
-        
-          
           text = text.replace(/\n/g, "<br/>");
+          
+          text = text.replace(/{{/g, "<img src='{{");
+          
+          
+          
+          text = text.replace(/}}/g, "' alt='' class='thumbnail' />");
+          
       
         // Replace quotations as a quote block //
        
@@ -197,7 +233,10 @@ Template.DashpostItem.helpers ( {
 
 Template.DashpostItem.events ({
 
-           'click .sendEmail': function (e) {
+           'click .postAction': function (e) {
+           
+                    switch(this.status) {
+                        case 2: {
                     var listnum = 0;
                    var list= DistributionLists.find().fetch()[0].list;
                    
@@ -261,6 +300,17 @@ Template.DashpostItem.events ({
                         
                         listnum = listnum + 1;
                         }
+                        
+                        } break;
+                        
+                        case 0: {var listId = Posts.findOne({"docId":this.docId})._id;
+                                Posts.update({"_id":listId},{$set: {status:1}}); } break;
+                        case 1: {var listId = Posts.findOne({"docId":this.docId})._id;
+                                Posts.update({"_id":listId},{$set: {status:2}}); } break;
+                        case 3: {var listId = Posts.findOne({"docId":this.docId})._id;
+                                Posts.update({"_id":listId},{$set: {status:2}});} break;
+                        
+                        }
                      
                     },
                     
@@ -272,7 +322,7 @@ Template.DashpostItem.events ({
                             
            'click #delete' : function(e) {
                                  var listId = Posts.findOne({"docId":this.docId})._id;
-                                Posts.update({"_id":listId},{$set: {status:2}});
+                                Posts.update({"_id":listId},{$set: {status:4}});
            
                             }
                         
